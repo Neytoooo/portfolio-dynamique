@@ -1,25 +1,24 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ExternalLink, Github } from "lucide-react";
 
 const projects = [
   {
+    title: "Transactions App",
+    desc: "Application complète de gestion de transactions avec interface moderne et logique métier optimisée.",
+    tech: ["Next.js", "TypeScript", "Tailwind", "MongoDB"],
+    github: "https://github.com/Neytoooo/transactions-app",
+    preview: "https://transactions-app.vercel.app",
+    vercel: true,
+  },
+  {
     title: "Portfolio Dynamique",
-    desc: "Version moderne du site itssharl avec background animé et motion.",
+    desc: "Mon site personnel inspiré d'Itssharl, avec fond dynamique et transitions fluides.",
     tech: ["Next.js", "Tailwind", "Framer Motion"],
-    link: "#",
-  },
-  {
-    title: "App Dashboard",
-    desc: "Dashboard full responsive avec chart interactif et thème clair/sombre.",
-    tech: ["React", "Recharts", "Shadcn/UI"],
-    link: "#",
-  },
-  {
-    title: "Landing Page 3D",
-    desc: "Expérience WebGL légère utilisant Three.js et React Three Fiber.",
-    tech: ["Three.js", "React Three Fiber", "GSAP"],
-    link: "#",
+    github: "https://github.com/Neytoooo/portfolio-dynamique",
+    preview: "https://portfolio-dynamique-5nu4q67ah-mattis-projects-a36fa3f1.vercel.app",
+    vercel: true,
   },
 ];
 
@@ -40,22 +39,52 @@ export default function Works() {
 
       <div className="grid gap-10 md:grid-cols-2">
         {projects.map((p, i) => (
-          <motion.a
+          <motion.div
             key={i}
-            href={p.link}
             whileHover={{ scale: 1.02 }}
             className="block rounded-2xl p-6 bg-white/5 hover:bg-white/10 border border-white/10 transition"
           >
             <h3 className="text-xl font-semibold mb-2">{p.title}</h3>
             <p className="text-white/70 text-sm mb-4">{p.desc}</p>
-            <ul className="flex flex-wrap gap-2 text-xs text-cyan-300">
+
+            <ul className="flex flex-wrap gap-2 text-xs text-cyan-300 mb-5">
               {p.tech.map((t) => (
                 <li key={t} className="bg-cyan-900/40 px-2 py-1 rounded-md">
                   {t}
                 </li>
               ))}
             </ul>
-          </motion.a>
+
+            <div className="flex items-center gap-4 text-sm">
+              {p.github && (
+                <a
+                  href={p.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-white/80 hover:text-white transition"
+                >
+                  <Github size={16} /> Code
+                </a>
+              )}
+
+              {p.preview && (
+                <a
+                  href={p.preview}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-cyan-400 hover:text-cyan-300 transition"
+                >
+                  <ExternalLink size={16} /> Preview
+                </a>
+              )}
+            </div>
+
+            {p.vercel && (
+              <p className="text-[11px] text-white/40 mt-4 italic">
+                Déployé sur <span className="text-white/70">Vercel</span>
+              </p>
+            )}
+          </motion.div>
         ))}
       </div>
     </section>
