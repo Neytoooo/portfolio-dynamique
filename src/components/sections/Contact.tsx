@@ -31,7 +31,7 @@ export default function Contact() {
       </motion.a>
 
       <p className="mt-10 text-sm text-white/40">
-        © {new Date().getFullYear()} Henri “Neyto” — Tous droits réservés
+        © {new Date().getFullYear()} Mattis Kohen — Tous droits réservés
       </p>
     </section>
   );
