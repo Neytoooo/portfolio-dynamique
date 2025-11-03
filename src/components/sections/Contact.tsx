@@ -22,12 +22,12 @@ export default function Contact() {
       </p>
 
       <motion.a
-        href="mailto:contact@neyto.dev"
+        href="mailto:mattiskhn@gmail.com"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className="inline-block bg-cyan-500 hover:bg-cyan-400 text-black font-medium px-8 py-3 rounded-full transition"
       >
-        contact@neyto.dev
+        mattiskhn@gmail.com
       </motion.a>
 
       <p className="mt-10 text-sm text-white/40">
