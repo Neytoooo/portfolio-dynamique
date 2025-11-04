@@ -75,17 +75,13 @@ export default function FloatingSocialBubble() {
       {/* Bubble button */}
       {/* Bubble button */}
 <motion.button
-  onClick={() => setOpen((v) => !v)}
+  onClick={() => setOpen(v => !v)}
   aria-expanded={open}
   aria-label={open ? "Fermer les réseaux" : "Ouvrir les réseaux"}
   whileTap={{ scale: 0.97 }}
-  className="
-    relative grid h-20 w-20 place-items-center rounded-full
-    border border-white/15 bg-white/10 backdrop-blur-md
-    shadow-[0_8px_30px_rgba(0,0,0,0.35)]
-    hover:bg-white/15 transition
-  "
+  className="relative grid h-20 w-20 place-items-center rounded-full border border-white/15 bg-white/10 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] hover:bg-white/15 transition"
 >
+
   {/* glow */}
   <motion.span
     aria-hidden

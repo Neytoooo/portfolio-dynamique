@@ -2,7 +2,6 @@ import DynamicBackground from "@/components/DynamicBackground";
 import Hero from "@/components/sections/Hero";
 import Works from "@/components/sections/Works";
 import Contact from "@/components/sections/Contact";
-import { notFound } from "next/navigation";
 import FloatingSocialBubble from "@/components/FloatingSocialBubble";
 
 export default function Page() {
