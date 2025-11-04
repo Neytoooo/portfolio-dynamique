@@ -6,12 +6,28 @@ import { ExternalLink, Github } from "lucide-react";
 // ⚙️ Si tu veux mettre ton image locale, place-la dans /public/images/
 import batigestImg from "@/../public/images/d032ccb7-26d1-45d3-b7c2-76fd6e2e1fc9.png";
 
+// version à incrémenter quand tu veux rafraîchir les vignettes
+const THUMB_BUST = "v4"; // change en v4 la prochaine fois
+
+// Bust Microlink cache (si tu l'utilises)
+
+const withBust = (url: string) => {
+  try {
+    const u = new URL(url);
+    u.searchParams.set("v", THUMB_BUST);
+    return u.toString();
+  } catch {
+    return url + (url.includes("?") ? "&" : "?") + "v=" + THUMB_BUST;
+  }
+};
 const thumb = (url: string) =>
   `https://api.microlink.io/?url=${encodeURIComponent(
-    url
-  )}&screenshot=true&meta=false&embed=screenshot.url`;
+    withBust(url)
+  )}&screenshot=true&meta=false&embed=screenshot.url&screenshot.waitFor=2000&colorScheme=dark`;
 
-  const safeHref = (url?: string) => (url && url !== "#" ? url : "/404");
+// ✅ helper pour 404 si lien vide
+const safeHref = (url?: string) => (url && url !== "#" ? url : "/404");
+
 
 
 const projects = [
