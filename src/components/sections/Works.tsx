@@ -3,13 +3,11 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 
-// ⚙️ Si tu veux mettre ton image locale, place-la dans /public/images/
-import batigestImg from "@/../public/images/d032ccb7-26d1-45d3-b7c2-76fd6e2e1fc9.png";
-
-// version à incrémenter quand tu veux rafraîchir les vignettes
-const THUMB_BUST = "v4"; // change en v4 la prochaine fois
-
-// Bust Microlink cache (si tu l'utilises)
+/* ------------------------------------------------------------------ */
+/* Microlink screenshot helper + cache bust                           */
+/* ------------------------------------------------------------------ */
+// ↑ Incrémente cette version pour forcer le rafraîchissement des vignettes
+const THUMB_BUST = "v6";
 
 const withBust = (url: string) => {
   try {
@@ -20,16 +18,18 @@ const withBust = (url: string) => {
     return url + (url.includes("?") ? "&" : "?") + "v=" + THUMB_BUST;
   }
 };
+
 const thumb = (url: string) =>
   `https://api.microlink.io/?url=${encodeURIComponent(
     withBust(url)
-  )}&screenshot=true&meta=false&embed=screenshot.url&screenshot.waitFor=2000&colorScheme=dark`;
+  )}&screenshot=true&meta=false&embed=screenshot.url&screenshot.waitFor=2500&screenshot.device=desktop&colorScheme=dark`;
 
-// ✅ helper pour 404 si lien vide
+/* Lien sûr : envoie vers /404 si vide */
 const safeHref = (url?: string) => (url && url !== "#" ? url : "/404");
 
-
-
+/* ------------------------------------------------------------------ */
+/* Données projets                                                     */
+/* ------------------------------------------------------------------ */
 const projects = [
   {
     title: "Transactions App",
@@ -41,7 +41,7 @@ const projects = [
     status: "online",
   },
   {
-    title: "Portfolio Dynamique",
+    title: "Portefolio",
     desc: "Mon site perso avec fond dynamique + transitions fluides.",
     tech: ["Next.js", "Tailwind", "Framer Motion"],
     github: "https://github.com/Neytoooo/portfolio-dynamique",
@@ -50,19 +50,18 @@ const projects = [
     status: "online",
   },
   {
-    title: "Batigest",
-    desc: `Application complète pour les métiers du bâtiment : gestion des devis/factures, suivi de chantier (planning, intervenants, coûts réels vs prévus), gestion des stocks et achats, ainsi qu'une comptabilité analytique avec export vers logiciels tiers.`,
-    tech: ["Next.js", "TypeScript", "Tailwind", "Prisma"],
-    github: "https://github.com/Neytoooo/comparatif-batigest",
-    preview: "#",
-    vercel: false,
-    status: "building",
-    image: "/images/d032ccb7-26d1-45d3-b7c2-76fd6e2e1fc9.png", // 🖼️ ton image locale
+    title: "BTP Landing",
+    desc: "Landing page professionnelle pour les entreprises du BTP, design moderne, animations fluides et structure responsive. Optimisée pour les conversions et l’identité de marque.",
+    tech: ["Next.js", "TailwindCSS", "Framer Motion"],
+    github: "https://github.com/Neytoooo/btp-landing",
+    preview: "https://btp-landing.vercel.app/?v=v6",
+    vercel: true,
+    status: "online",
   },
   {
     title: "Projet #4 — À venir",
     desc: "Prochain projet en préparation… reste à l’affût !",
-    tech: [],
+    tech: [] as string[],
     github: "",
     preview: "",
     vercel: false,
@@ -70,12 +69,12 @@ const projects = [
   },
 ];
 
+/* ------------------------------------------------------------------ */
+/* Composant                                                           */
+/* ------------------------------------------------------------------ */
 export default function Works() {
   return (
-    <section
-      id="works"
-      className="relative z-10 py-24 px-6 text-white max-w-5xl mx-auto"
-    >
+    <section id="works" className="relative z-10 py-24 px-6 text-white max-w-5xl mx-auto">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -92,9 +91,8 @@ export default function Works() {
             whileHover={{ scale: 1.01 }}
             className="rounded-2xl overflow-hidden bg-white/5 border border-white/10 hover:bg-white/10 transition relative"
           >
-            {/* ✅ Image + header transparent */}
+            {/* --- Bandeau status --- */}
             <div className="relative">
-              {/* Header semi-transparent */}
               <div className="absolute top-0 left-0 w-full h-9 bg-black/30 backdrop-blur-sm flex justify-end items-center px-3 rounded-t-md z-10">
                 {p.status === "online" ? (
                   <span className="bg-green-500/20 text-green-300 text-xs font-medium px-2 py-1 rounded-md backdrop-blur-sm border border-green-500/30">
@@ -107,15 +105,8 @@ export default function Works() {
                 )}
               </div>
 
-              {/* Capture */}
-              {p.image ? (
-                <img
-                  src={p.image}
-                  alt={`Preview ${p.title}`}
-                  className="w-full aspect-[16/9] object-cover rounded-t-md"
-                  loading="lazy"
-                />
-              ) : p.preview || p.github ? (
+              {/* --- Capture Microlink (pas d'image locale) --- */}
+              {p.preview || p.github ? (
                 <a
                   href={(p.preview || p.github) || "#"}
                   target="_blank"
@@ -124,12 +115,10 @@ export default function Works() {
                 >
                   <img
                     src={thumb((p.preview || p.github) || "#")}
-                    
                     alt={`Preview ${p.title}`}
                     className="w-full aspect-[16/9] object-cover rounded-t-md"
                     loading="lazy"
                   />
-                  
                 </a>
               ) : (
                 <div className="w-full aspect-[16/9] flex items-center justify-center bg-white/5 text-white/40 text-sm rounded-t-md">
@@ -138,7 +127,7 @@ export default function Works() {
               )}
             </div>
 
-            {/* ✅ Infos projet */}
+            {/* --- Infos --- */}
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-2">{p.title}</h3>
               <p className="text-white/70 text-sm mb-4">{p.desc}</p>
@@ -155,26 +144,25 @@ export default function Works() {
 
               <div className="flex items-center gap-4 text-sm">
                 {p.github && (
-  <a
-    href={safeHref(p.github)}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex items-center gap-1 text-white/80 hover:text-white transition"
-  >
-    <Github size={16} /> Code
-  </a>
-)}
-{p.preview && (
-  <a
-    href={safeHref(p.preview)}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex items-center gap-1 text-cyan-400 hover:text-cyan-300 transition"
-  >
-    <ExternalLink size={16} /> Preview
-  </a>
-)}
-
+                  <a
+                    href={safeHref(p.github)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-white/80 hover:text-white transition"
+                  >
+                    <Github size={16} /> Code
+                  </a>
+                )}
+                {p.preview && (
+                  <a
+                    href={safeHref(p.preview)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-cyan-400 hover:text-cyan-300 transition"
+                  >
+                    <ExternalLink size={16} /> Preview
+                  </a>
+                )}
               </div>
 
               {p.vercel && (
