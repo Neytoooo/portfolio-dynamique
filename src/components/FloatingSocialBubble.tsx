@@ -92,7 +92,7 @@ export default function FloatingSocialBubble() {
   {/* avatar */}
   <div className="relative h-16 w-16 overflow-hidden rounded-full ring-1 ring-white/20">
     <Image
-      src="/images/avatar-3d.png"
+      src="/images/avatar-3d2.png"
       alt="Avatar 3D"
       fill
       sizes="64px"
