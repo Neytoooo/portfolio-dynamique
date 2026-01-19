@@ -6,8 +6,7 @@ import { ExternalLink, Github } from "lucide-react";
 /* ------------------------------------------------------------------ */
 /* Microlink screenshot helper + cache bust                           */
 /* ------------------------------------------------------------------ */
-// ↑ Incrémente cette version pour forcer le rafraîchissement des vignettes
-const THUMB_BUST = "v6";
+const THUMB_BUST = "v7"; // Incrémenté pour rafraîchir
 
 const withBust = (url: string) => {
   try {
@@ -24,13 +23,21 @@ const thumb = (url: string) =>
     withBust(url)
   )}&screenshot=true&meta=false&embed=screenshot.url&screenshot.waitFor=2500&screenshot.device=desktop&colorScheme=dark`;
 
-/* Lien sûr : envoie vers /404 si vide */
 const safeHref = (url?: string) => (url && url !== "#" ? url : "/404");
 
 /* ------------------------------------------------------------------ */
-/* Données projets                                                     */
+/* Données projets                                                    */
 /* ------------------------------------------------------------------ */
 const projects = [
+  {
+    title: "Sponsio",
+    desc: "Infrastructure Ad-Tech SaaS permettant aux créateurs d'automatiser la vente et la gestion de leurs espaces publicitaires (Widget intelligent, Stripe, Cloudinary).",
+    tech: ["Next.js 15", "Supabase", "Prisma", "Stripe", "Cloudinary", "Tailwind"],
+    github: "",
+    preview: "https://sloty-app.vercel.app",
+    vercel: true,
+    status: "En ligne V1, et building V2",
+  },
   {
     title: "Transactions App",
     desc: "Application de gestion de transactions (UI moderne, logique métier optimisée).",
@@ -41,7 +48,16 @@ const projects = [
     status: "online",
   },
   {
-    title: "Portefolio",
+    title: "BTP Landing",
+    desc: "Landing page professionnelle pour les entreprises du BTP, design moderne, animations fluides et structure responsive.",
+    tech: ["Next.js", "TailwindCSS", "Framer Motion"],
+    github: "https://github.com/Neytoooo/btp-landing",
+    preview: "https://btp-landing.vercel.app/?v=v6",
+    vercel: true,
+    status: "online",
+  },
+  {
+    title: "Portfolio",
     desc: "Mon site perso avec fond dynamique + transitions fluides.",
     tech: ["Next.js", "Tailwind", "Framer Motion"],
     github: "https://github.com/Neytoooo/portfolio-dynamique",
@@ -50,16 +66,7 @@ const projects = [
     status: "online",
   },
   {
-    title: "BTP Landing",
-    desc: "Landing page professionnelle pour les entreprises du BTP, design moderne, animations fluides et structure responsive. Optimisée pour les conversions et l’identité de marque.",
-    tech: ["Next.js", "TailwindCSS", "Framer Motion"],
-    github: "https://github.com/Neytoooo/btp-landing",
-    preview: "https://btp-landing.vercel.app/?v=v6",
-    vercel: true,
-    status: "online",
-  },
-  {
-    title: "Projet #4 — À venir",
+    title: "Projet #5 — À venir",
     desc: "Prochain projet en préparation… reste à l’affût !",
     tech: [] as string[],
     github: "",
@@ -70,7 +77,7 @@ const projects = [
 ];
 
 /* ------------------------------------------------------------------ */
-/* Composant                                                           */
+/* Composant                                                          */
 /* ------------------------------------------------------------------ */
 export default function Works() {
   return (
@@ -98,6 +105,10 @@ export default function Works() {
                   <span className="bg-green-500/20 text-green-300 text-xs font-medium px-2 py-1 rounded-md backdrop-blur-sm border border-green-500/30">
                     ● En ligne
                   </span>
+                ) : p.status === "En ligne V1, et building V2" ? (
+                  <span className="bg-blue-500/20 text-blue-300 text-xs font-medium px-2 py-1 rounded-md backdrop-blur-sm border border-blue-500/30">
+                    ● V1 En ligne | 🚧 V2
+                  </span>
                 ) : (
                   <span className="bg-yellow-500/20 text-yellow-300 text-xs font-medium px-2 py-1 rounded-md backdrop-blur-sm border border-yellow-500/30">
                     🚧 Building
@@ -105,7 +116,7 @@ export default function Works() {
                 )}
               </div>
 
-              {/* --- Capture Microlink (pas d'image locale) --- */}
+              {/* --- Capture Microlink --- */}
               {p.preview || p.github ? (
                 <a
                   href={(p.preview || p.github) || "#"}
