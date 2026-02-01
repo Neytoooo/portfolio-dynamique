@@ -39,6 +39,15 @@ const projects = [
     status: "En ligne V1, et building V2",
   },
   {
+    title: "Trame",
+    desc: "Plateforme SaaS tout-en-un pour les professionnels du BTP : tableau de bord dynamique, CRM client intégré, suivi de chantier en temps réel et authentification sécurisée (OAuth Google).",
+    tech: ["Next.js", "TypeScript", "Tailwind", "Supabase", "OAuth"],
+    github: "https://github.com/Neytoooo/Trame",
+    preview: "https://trame-kohl.vercel.app",
+    vercel: true,
+    status: "En ligne V1, et building V2",
+  },
+  {
     title: "Transactions App",
     desc: "Application de gestion de transactions (UI moderne, logique métier optimisée).",
     tech: ["Next.js", "TypeScript", "Tailwind", "MongoDB"],
@@ -66,7 +75,7 @@ const projects = [
     status: "online",
   },
   {
-    title: "Projet #5 — À venir",
+    title: "Projet #6 — À venir",
     desc: "Prochain projet en préparation… reste à l’affût !",
     tech: [] as string[],
     github: "",
