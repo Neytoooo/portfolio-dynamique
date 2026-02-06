@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 type Shape = {
   size: number;
@@ -13,6 +14,7 @@ type Shape = {
   mixBlend: "screen" | "overlay" | "soft-light";
 };
 
+/* ... SHAPES array remains unchanged ... */
 const SHAPES: Shape[] = [
   {
     size: 420,
@@ -58,6 +60,13 @@ const SHAPES: Shape[] = [
 
 export default function DynamicBackground() {
   const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll();
+
+  // Map scroll progress to darkness opacity.
+  // 0% scroll (top) -> 0 opacity (normal colors)
+  // 50% scroll -> 0.4 opacity
+  // 100% scroll (bottom/skills) -> 0.98 opacity (Almost fully black/Abyss)
+  const darknessOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.4, 0.98]);
 
   useEffect(() => {
     const el = ref.current;
@@ -132,9 +141,15 @@ export default function DynamicBackground() {
         ))}
       </div>
 
+      {/* DEEP OCEAN OVERLAY: Renders ON TOP of shapes to dim them */}
+      <motion.div
+        className="absolute inset-0 z-10 bg-[#020617] pointer-events-none"
+        style={{ opacity: darknessOpacity }}
+      />
+
       {/* overlay grain subtil */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.07] mix-blend-soft-light"
-           style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.8'/></svg>\")" }} />
+      <div className="pointer-events-none absolute inset-0 opacity-[0.07] mix-blend-soft-light z-20"
+        style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.8'/></svg>\")" }} />
     </div>
   );
 }

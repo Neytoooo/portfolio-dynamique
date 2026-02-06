@@ -13,7 +13,7 @@ type Social = {
 };
 
 const socials: Social[] = [
-  { label: "GitHub",   href: "https://github.com/Neytoooo",          icon: <Github size={16} /> },
+  { label: "GitHub", href: "https://github.com/Neytoooo", icon: <Github size={16} /> },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/mattis-kohen-538b10222", icon: <Linkedin size={16} /> },
 ];
 
@@ -74,33 +74,35 @@ export default function FloatingSocialBubble() {
 
       {/* Bubble button */}
       {/* Bubble button */}
-<motion.button
-  onClick={() => setOpen(v => !v)}
-  aria-expanded={open}
-  aria-label={open ? "Fermer les réseaux" : "Ouvrir les réseaux"}
-  whileTap={{ scale: 0.97 }}
-  className="relative grid h-20 w-20 place-items-center rounded-full border border-white/15 bg-white/10 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] hover:bg-white/15 transition"
->
+      <motion.button
+        onClick={() => setOpen(v => !v)}
+        aria-expanded={open}
+        aria-label={open ? "Fermer les réseaux" : "Ouvrir les réseaux"}
+        whileTap={{ scale: 0.97 }}
+        // MODIFIED: Removed border border-white/15 and bg-white/10
+        className="relative grid h-20 w-20 place-items-center rounded-full border-none bg-transparent backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.35)] hover:bg-white/5 transition"
+      >
 
-  {/* glow */}
-  <motion.span
-    aria-hidden
-    className="absolute -inset-3 rounded-full bg-cyan-400/25 blur-xl"
-    animate={{ opacity: [0.35, 0.7, 0.35], scale: [1, 1.08, 1] }}
-    transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-  />
-  {/* avatar */}
-  <div className="relative h-16 w-16 overflow-hidden rounded-full ring-1 ring-white/20">
-    <Image
-      src="/images/avatar-3d2.png"
-      alt="Avatar 3D"
-      fill
-      sizes="64px"
-      className="object-cover"
-      priority
-    />
-  </div>
-</motion.button>
+        {/* glow */}
+        <motion.span
+          aria-hidden
+          className="absolute -inset-3 rounded-full bg-cyan-400/25 blur-xl"
+          animate={{ opacity: [0.35, 0.7, 0.35], scale: [1, 1.08, 1] }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        {/* avatar */}
+        {/* MODIFIED: Removed ring-1 ring-white/20 */}
+        <div className="relative h-16 w-16 overflow-hidden rounded-full">
+          <Image
+            src="/images/avatar-3d2.png"
+            alt="Avatar 3D"
+            fill
+            sizes="64px"
+            className="object-cover"
+            priority
+          />
+        </div>
+      </motion.button>
 
     </div>
   );
