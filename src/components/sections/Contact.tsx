@@ -9,7 +9,7 @@ export default function Contact() {
   const calendar = "mailto:mattiskhn@gmail.com?subject=Proposer%20une%20rencontre";
 
   return (
-    <section id="contact" className="relative z-10 py-28 px-6 text-white">
+    <section id="contact" className="relative z-10 py-28 px-6 text-white pointer-events-none">
       {/* Aura douce derrière le bloc */}
       <div
         aria-hidden
@@ -23,7 +23,7 @@ export default function Contact() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="mx-auto max-w-3xl rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.25)]"
+        className="mx-auto max-w-3xl rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.25)] pointer-events-auto"
       >
         {/* Titre */}
         <div className="text-center">

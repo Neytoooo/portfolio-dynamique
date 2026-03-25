@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import StarField from "./StarField";
 
 type Shape = {
   size: number;
@@ -68,6 +69,9 @@ export default function DynamicBackground() {
   // 100% scroll (bottom/skills) -> 0.98 opacity (Almost fully black/Abyss)
   const darknessOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.4, 0.98]);
 
+  // Sky opacity: Stars visible at top, fade out by 25% scroll
+  const skyOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -118,6 +122,14 @@ export default function DynamicBackground() {
           "radial-gradient(1200px 600px at 50% 50%, rgba(30,30,30,.9), rgba(0,0,0,1))",
       }}
     >
+      {/* STAR FIELD (Top Sky) */}
+      <motion.div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{ opacity: skyOpacity }}
+      >
+        <StarField />
+      </motion.div>
+
       {/* centre de la scène */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         {SHAPES.map((s, i) => (

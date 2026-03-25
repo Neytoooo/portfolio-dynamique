@@ -6,6 +6,7 @@ import Works from "@/components/sections/Works";
 import Contact from "@/components/sections/Contact";
 import DeepOceanShark from "@/components/DeepOceanShark";
 import FloatingSocialBubble from "@/components/FloatingSocialBubble";
+import SeaweedContainer from "@/components/SeaweedContainer";
 
 export default function Page() {
   return (
@@ -17,6 +18,7 @@ export default function Page() {
       <Works />
       <Skills />
       <Contact />
+      <SeaweedContainer />
     </main>
   );
 }

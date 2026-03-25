@@ -10,11 +10,9 @@ export default function DeepOceanShark() {
     const { scrollYProgress } = useScroll();
 
     // Animation Trigger range
-    // Shark swims when we are in the last 30% of the page (Skills section)
-    // X translation: Moves from Right (100vw) to Left (-100vw) based on scroll
-    // OR: continuously swims if we are deep?
-    // Let's make it scroll-driven for precise control ("passing through").
-    // Map scroll [0.6, 1.0] -> x: [120%, -120%]
+    // Shark swims more slowly across the whole page depth
+    // Map scroll [0.2, 1.0] -> x: [120%, -120%]
+    // This reduces speed by expanding the time (scroll distance) it takes to cross
 
     // Smooth scroll for "floating" feel instead of jerky direct mapping
     const smoothScroll = useSpring(scrollYProgress, {
@@ -23,8 +21,8 @@ export default function DeepOceanShark() {
         restDelta: 0.001
     });
 
-    const sharkX = useTransform(smoothScroll, [0.65, 0.95], ["120vw", "-120vw"]);
-    const sharkOpacity = useTransform(smoothScroll, [0.6, 0.7, 0.9, 1], [0, 1, 1, 0]);
+    const sharkX = useTransform(smoothScroll, [0.70, 1], ["120vw", "-120vw"]);
+    const sharkOpacity = useTransform(smoothScroll, [0.45, 0.6, 0.9, 1], [0, 1, 1, 0]);
 
     return (
         <div
@@ -38,7 +36,7 @@ export default function DeepOceanShark() {
                     opacity: sharkOpacity,
                     scale: 1
                 }}
-                className="relative w-[750px] h-[750px] translate-y-[10%]"
+                className="relative w-[750px] h-[750px] translate-y-[0%]"
             >
                 <ThreeShark />
             </motion.div>
