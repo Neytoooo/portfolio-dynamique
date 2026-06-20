@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 
 export default function Hero() {
-  const pdf = "/cv/Mattis_Kohen_CV_2025.pdf";
+  const pdf = "/cv/Mattis_kohen_cv_2026.pdf";
   const esgiLogo = "/images/101_logo.png";
 
   return (

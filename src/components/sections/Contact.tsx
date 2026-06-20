@@ -5,7 +5,7 @@ import { Mail, Calendar, Download, ArrowRight } from "lucide-react";
 
 export default function Contact() {
   const email = "mattiskhn@gmail.com";
-  const cv = "/cv/Mattis_Kohen_CV_2025.pdf";
+  const cv = "/cv/Mattis_kohen_cv_2026.pdf";
   const calendar = "mailto:mattiskhn@gmail.com?subject=Proposer%20une%20rencontre";
 
   return (
